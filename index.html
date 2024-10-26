@@ -1,9 +1,97 @@
 <!DOCTYPE html>
- <html lang="de">
-  <head>
-    <title>IPWA021</title>
-  </head>
-  <body>
-    <h1>IPWA01</h1>
-  </body>
- </html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Anwendungen je nach Gerät</title>
+    /* dies ist ein test*/
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        /* Verstecke Taschenrechner auf Desktops */
+        #calculator {
+            display: none;
+        }
+
+        /* Verstecke Namensabfrage auf mobilen Geräten */
+        #namePrompt {
+            display: none;
+        }
+
+        /* Media Query für Desktops (größer als 768px) */
+        @media (min-width: 769px) {
+            #namePrompt {
+                display: block; /* Zeige Namensabfrage */
+            }
+            /* Ändere die Schriftfarbe auf Rot */
+            body {
+                color: green;
+            } /* Hier fehlt die schließende Klammer */
+        }
+
+        /* Media Query für mobile Geräte (bis zu 768px) */
+        @media (max-width: 768px) {
+            /* Zeige den Taschenrechner */
+            #calculator {
+                display: block; /* Zeige Taschenrechner */
+            }
+
+            /* Ändere die Schriftfarbe auf Rot */
+            body {
+                color: red;
+            } /* Hier fehlt ebenfalls die schließende Klammer */
+        }
+    </style>
+</head>
+<body>
+    <h1>Geräteabhängige JavaScript-Anwendung</h1>
+
+    <!-- Bereich für die Namensabfrage (nur auf Desktops sichtbar) -->
+    <div id="namePrompt">
+        <p>Gib deinen Namen ein:</p>
+        <input type="text" id="nameInput" placeholder="Name eingeben">
+        <button onclick="sayHello()">Hallo sagen!</button>
+        <p id="output"></p>
+    </div>
+
+    <!-- Bereich für den Taschenrechner (nur auf mobilen Geräten sichtbar) -->
+    <div id="calculator">
+        <h2>Taschenrechner</h2>
+        <input type="number" id="num1" placeholder="Zahl 1">
+        <input type="number" id="num2" placeholder="Zahl 2">
+        <button onclick="calculate()">Berechnen</button>
+        <p id="calcOutput"></p>
+    </div>
+
+    <script>
+        // Funktion für die Namensabfrage (wird nur auf Desktops verwendet)
+        function sayHello() {
+            const name = document.getElementById("nameInput").value;
+            if (name) {
+                document.getElementById("output").innerText = "Hallo " + name + "!";
+            } else {
+                document.getElementById("output").innerText = "Bitte gib deinen Namen ein.";
+            }
+        }
+
+        // Funktion für den Taschenrechner (wird nur auf mobilen Geräten verwendet)
+        function calculate() {
+            const num1 = parseFloat(document.getElementById("num1").value);
+            const num2 = parseFloat(document.getElementById("num2").value);
+
+            if (!isNaN(num1) && !isNaN(num2)) {
+                const result = num1 + num2;
+                document.getElementById("calcOutput").innerText = "Ergebnis: " + result;
+            } else {
+                document.getElementById("calcOutput").innerText = "Bitte beide Zahlen eingeben.";
+            }
+        }
+    </script>
+</body>
+</html>
